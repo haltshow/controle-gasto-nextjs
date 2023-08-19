@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Entrada {
+  id        Int      @id @default(autoincrement())
+  valor     Float
+  idOrigem  Int?
+  idUser    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  origem OrigemEntrada? @relation(fields: [idOrigem], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  user   User?          @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model Saida {
+  id        Int      @id @default(autoincrement())
+  valor     Float
+  idOrigem  Int?
+  idUser    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  origem OrigemSaida? @relation(fields: [idOrigem], references: [id], onUpdate: Cascade, onDelete: SetNull)
+  User   User?        @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model OrigemEntrada {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  idUser    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Entrada   Entrada[]
+
+  user User? @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model OrigemSaida {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  idUser    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Saida     Saida[]
+
+  user User? @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: SetNull)
+}
+
+model User {
+  id            String @id @default(uuid())
+  name          String
+  username      String @unique
+  passwordHash  String
+  userAuthToken String @unique
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  Entrada       Entrada[]
+  Saida         Saida[]
+  OrigemEntrada OrigemEntrada[]
+  OrigemSaida   OrigemSaida[]
+}
