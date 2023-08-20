@@ -49,8 +49,8 @@ export async function login(data: FormData) {
         httpOnly: true,
         path: '/',
     });
-   
-    return NextResponse.json({mensagem: 'Login feito com sucesso', status: 200})
+
+    redirect('/')
 }
 
 export async function logout() {

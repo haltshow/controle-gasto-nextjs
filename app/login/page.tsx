@@ -6,12 +6,7 @@ export default function Login() {
     async function handleSubmit(data : FormData) {
         'use server';
 
-        const res = await login(data)
-        const user = await res.json()
-
-        if (user) {
-            redirect('/')
-        }
+        await login(data)
     }
 
     let form : any = {}
