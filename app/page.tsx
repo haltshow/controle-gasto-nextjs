@@ -124,7 +124,7 @@ export default async function Page() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700 text-[14px]">
               {entradasByOrigem && entradasByOrigem.map((entrada : any)  => (
-                <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={entrada?.id}>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">{entrada?.origem ? entrada?.origem : ''}</td>
                   <td className="py-4 px-6 font-medium text-gray-500 whitespace-nowrap dark:text-white text-center">R$ {entrada?._sum.valor.toFixed(2)}</td>
                 </tr>
@@ -151,7 +151,7 @@ export default async function Page() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700 text-[14px]">
               {saidasByOrigem && saidasByOrigem.map((saida : any) => (
-                <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={saida.id}>
                   <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">{saida.origem ? saida.origem : ''}</td>
                   <td className="py-4 px-6 font-medium text-gray-500 whitespace-nowrap dark:text-white text-center">R$ {saida._sum.valor.toFixed(2)}</td>
                 </tr>
