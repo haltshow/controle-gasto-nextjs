@@ -31,9 +31,9 @@ export default async function EditEntrada({ params: { id }} : { params : {id: nu
                             {origemEntrada && origemEntrada.map((origem) => (
                                 <>
                                     {origem?.nome == entrada?.origem?.nome ? (
-                                        <option value={origem.id} selected>{origem.nome}</option>
+                                        <option value={origem.id} selected key={origem.id}>{origem.nome}</option>
                                     ) : (
-                                        <option value={origem.id}>{origem.nome}</option>
+                                        <option value={origem.id} key={origem.id}>{origem.nome}</option>
                                     )}
                                 </>
                             ))}

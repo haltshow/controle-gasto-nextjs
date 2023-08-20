@@ -43,7 +43,7 @@ export default async function Entrada() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700 rounded-lg">
                     {entradas && entradas.map((entrada: any) => (
-                        <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <tr className="hover:bg-gray-100 dark:hover:bg-gray-700" key={entrada.id}>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{entrada.origem ? entrada.origem.nome : ''}</td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">R$ {entrada.valor.toFixed(2)}</td>
                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
