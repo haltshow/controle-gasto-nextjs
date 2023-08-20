@@ -1,4 +1,19 @@
+import {login} from "@/lib/api/actions"
+import { redirect } from 'next/navigation'
+
 export default function Login() {
+
+    async function handleSubmit(data : FormData) {
+        'use server';
+
+        const res = await login(data)
+        const user = await res.json()
+
+        if (user) {
+            redirect('/')
+        }
+    }
+
     let form : any = {}
     return (
         <main className="pt-8">
@@ -6,7 +21,7 @@ export default function Login() {
                 Login
             </p>
 
-            <form action="/login" method="POST">
+            <form action={handleSubmit} method="POST">
                 <label className="block mb-4 text-[16px]">
                     <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium text-slate-700">
                         Username

@@ -1,5 +1,45 @@
+import prisma from '@/lib/server/prisma';
+import bcrypt from 'bcrypt'
+import { redirect } from 'next/navigation';
+
 export default function Register() {
     let form : any = {}
+
+    async function handleSubmit(data : FormData) {
+        'use server';
+        try {
+            const name: any = data.get('name')
+            const username: any = data.get('username')
+            const password: any = data.get('password')
+
+            if (name == '' || username == '' || password == '') {
+                return null
+            }
+
+            const user = await prisma.user.findUnique({
+                where: { username }
+            });
+        
+            if (user) {
+                return null
+            }
+        
+            const userCreated = await prisma.user.create({
+                data: {
+                    username,
+                    name,
+                    passwordHash: await bcrypt.hash(password, 10),
+                    userAuthToken: crypto.randomUUID()
+                }
+            })
+            if (userCreated) {
+                redirect('/login')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <main>
             <section>
@@ -11,7 +51,7 @@ export default function Register() {
                     Para criar e controlar suas finanças é necessário criar uma conta!
                 </p>
 
-                <form action="?/register" method="POST">
+                <form action={handleSubmit} method="POST">
                     <label className="block mb-4 text-[16px]">
                         <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-medium text-slate-700">
                             Nome
