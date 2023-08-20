@@ -1,4 +1,4 @@
-import prisma from "@/lib/server/prisma";
+import { prisma } from "@/lib/server/prisma";
 import { getUserCookies } from "@/utils/cookies";
 
 import { RiMoneyDollarCircleLine } from "react-icons/ri"

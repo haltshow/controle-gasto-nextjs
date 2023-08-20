@@ -1,5 +1,5 @@
 import { getUserCookies } from "@/utils/cookies";
-import prisma from "../server/prisma";
+import { prisma } from "../server/prisma";
 import { redirect } from "next/navigation";
 
 export async function getEntradas() {

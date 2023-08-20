@@ -1,6 +1,6 @@
 "use server"
 
-import prisma from '../server/prisma'
+import { prisma } from '../server/prisma'
 import bcrypt from 'bcrypt'
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
